@@ -2,6 +2,41 @@
 This is a project by the NSF-GHOST, Traffic Analysis team at University of Colorado Boulder to hide network traffic and events. The campus WiFi system is used to simulate a 5G network for a proof-of-concept demonstration. This project is done in collaboration with Federated Wireless and includes support from University of Colorado Office of Information Technology. For a summary of our data, use [this link](https://github.com/NSF-GHOST/WiFi/blob/main/Summary.csv).
 
 ---
+
+```bash
+/smart-and-connected-campus
+    /src
+        /python
+            __init__.py
+            extraction.py
+            utils.py
+            plots_3d.py
+            data_processing.py
+    /notebooks
+        smart_and_connected_campus.ipynb
+    /data
+        /input
+            /coords
+                campusCoords.json
+            /png_files
+                campus_image.png
+            /WiFiData
+                building1.csv
+                building2.csv
+        /output
+    /scripts
+        script1.sh
+    /config
+    README.md
+    requirements.txt
+```
+
+\__init__.py: This file is read when Python initiates a package.
+extraction.py: This is where you can do all your data extraction.
+utils.py: A central place to store functions and classes that can be used throughout the project.
+plots_3d.py: This module can contain functions to generate or manipulate your 3D plots.
+data_processing.py: This file will handle processing of data in parallel using joblib.
+
 ### [Documentation](https://github.com/NSF-GHOST/WiFi/tree/main/docs)  
 Look here for help using this package. 
 |           File Name           |    Description   |
