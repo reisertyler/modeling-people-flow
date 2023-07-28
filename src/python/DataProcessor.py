@@ -2,6 +2,7 @@ from src.python.utils import *
 
 
 class DataProcessor:
+    
     def __init__(self,  
                  csv_directory: str     = CSV_DIRECTORY, 
                  start_date: datetime   = None, 
@@ -74,4 +75,3 @@ class DataProcessor:
             return total_time
 
         return {k: v for k, v in results if not v.empty}
-    
