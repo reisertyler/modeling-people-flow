@@ -1,6 +1,14 @@
 from src.python.utils import *
 
 
+'''
+
+A class to process the CU Boulder Network Information
+Date Created: Jul 28, 2023 by T.Reiser
+
+'''
+
+
 class DataProcessor:
     
     def __init__(self,  

@@ -1,4 +1,10 @@
-# Standard library imports
+'''
+
+Imports, constants, and paths to directories.
+Date Created: Jul 28, 2023 by T.Reiser
+
+'''
+
 import sys
 import multiprocessing
 from multiprocessing import Pool, cpu_count
@@ -7,7 +13,6 @@ from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime
 from typing import List, Dict, Tuple
 
-# Third party imports
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -21,13 +26,15 @@ from scipy.interpolate import interp1d
 from scipy import __version__ as scipy_version
 from IPython.display import display
 
-# TensorFlow import
 import tensorflow as tf
+import cv2
+from PIL import Image
+import matplotlib.image as mpimg
 
 
 def main():
-    print('Python version:', sys.version)
-    print('TensorFlow version:', tf)
+    print(  'Python version:',        sys.version   )
+    print(  'TensorFlow version:',    tf            )
 
 
 COMMON        = '_Extracted_Data_8-16-2019.csv'
@@ -44,4 +51,4 @@ OUTPUT_PATH_DT_SERIES        = build_path( *common_output_path, 'intervals',    
 OUTPUT_PATH_BUILDING_FULL_TS = build_path( *common_output_path, 'all-buildings'                   )
 OUTPUT_PATH                  = build_path( *common_output_path                                    )
 
-SAMPLE_FREQUENCY_LIST = ['10Min', '5Min', '2Min', '1Min', '0.5Min']
+SAMPLE_FREQUENCY_LIST = ['15Min','10Min', '5Min', '2Min', '1Min']
