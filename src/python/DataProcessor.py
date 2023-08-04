@@ -1,13 +1,9 @@
 from src.python.utils import *
 
-
 '''
-
 A class to process the CU Boulder Network Information
-Date Created: Jul 28, 2023 by T.Reiser
-
+Date Created: Jul 28, 2023 
 '''
-
 
 class DataProcessor:
     
@@ -17,8 +13,9 @@ class DataProcessor:
                  end_date: datetime     = None, 
                  building_id: str       = None, 
                  cpu_cores: int         = multiprocessing.cpu_count(),
-                 sample_freq: str       = '10Min',
-                 record_time: bool      = False):
+                 sample_freq: str       = '2Min',
+                 record_time: bool      = False
+                 ):
         
         self.csv_directory  = csv_directory
         self.start_date     = start_date
@@ -45,7 +42,7 @@ class DataProcessor:
         
         interpolation_range = pd.date_range(start=self.start_date, end=self.end_date, freq=self.sample_freq)
         data.index          = data.index.tz_localize(None)
-        f                   = interp1d(data.index.values.astype(float), data['devicecount'], fill_value="extrapolate")
+        f                   = interp1d(data.index.values.astype(float), data['devicecount'])
         interpolated_values = f(interpolation_range.values.astype(float))
         interpolated_df     = pd.DataFrame(interpolated_values, index=interpolation_range, columns=['devicecount'])
         
@@ -83,3 +80,29 @@ class DataProcessor:
             return total_time
 
         return {k: v for k, v in results if not v.empty}
+    
+    def measure_data_processing_speed(self, sample_frequency_list=SAMPLE_FREQUENCY_LIST):
+        num_cores       =   multiprocessing.cpu_count()
+        core_list       =   list(   range(  1, num_cores + 1)   )
+        times_record    =   { freq: [] for freq in sample_frequency_list  }
+
+        with ProcessPoolExecutor(   max_workers = num_cores   ) as executor:
+            for frequency in sample_frequency_list:
+                for core_num in core_list:
+                    self.cpu_cores    = core_num
+                    self.sample_freq  = frequency
+                    future      = executor.submit(self.process_all_buildings)
+                    total_time  = future.result()
+                    times_record[frequency].append( total_time.total_seconds()  )
+                        
+        df_times = pd.DataFrame(times_record)
+        
+        plt.figure(     figsize =   (   12, 5   )       )
+        sns.lineplot(   data    =   df_times            )
+        plt.title(  "Data Processing Time by Number of Cores"   )
+        plt.xlabel( "Number of CPU Cores"                       )
+        plt.ylabel( "Time (seconds)"                            )
+        plt.legend(title="Sample Frequency")
+        plt.grid(True)
+        plt.show()
+        return df_times 
