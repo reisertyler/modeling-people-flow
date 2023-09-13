@@ -1,9 +1,7 @@
 
 '''
-
 Imports, constants, and paths to directories.
-Date Created: Jul 28, 2023 by T.Reiser
-
+Date Created: Jul 28, 2023
 '''
 
 
@@ -15,6 +13,8 @@ from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime
 from typing import List, Dict, Tuple
 
+
+import tsnmf
 import cv2
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -33,7 +33,7 @@ from IPython.display import display
 
 from matplotlib.dates import DateFormatter
 
-from sklearn.decomposition import NMF
+from sklearn.decomposition import TruncatedSVD, NMF
 from sklearn.preprocessing import normalize
 
 
@@ -50,10 +50,11 @@ def build_path(*args):
 
 common_output_path = ['data', 'output', 'building-plots']
 CSV_DIRECTORY = build_path('data', 'input', 'WiFiData')
+OUTPUT_PATH                  = build_path( *common_output_path,                                   )
 
-OUTPUT_PATH_T_SERIES         = build_path( *common_output_path, 'intervals',    'time-series'     )
+
+OUTPUT_PATH_T_SERIES         = build_path( *common_output_path, 'Feb-10-2020_to_Mar-10-2020', 'interval',  'special'     )
 OUTPUT_PATH_DT_SERIES        = build_path( *common_output_path, 'intervals',    'datetime-series' )
 OUTPUT_PATH_BUILDING_FULL_TS = build_path( *common_output_path, 'all-buildings'                   )
-OUTPUT_PATH                  = build_path( *common_output_path                                    )
+OUTPUT_PATH_TSNMF            = build_path( *common_output_path, 'tsnmf'                           )
 
-SAMPLE_FREQUENCY_LIST = ['15Min','10Min', '5Min']
