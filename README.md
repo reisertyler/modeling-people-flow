@@ -1,4 +1,4 @@
-# Smart Campus Prototype
+# Smart Campus: Modeling Events
 
 ## Workflow
 
@@ -26,47 +26,53 @@
     - NMF
     - TSNMF
 
+4. Data Animation
+
+    - The `DataAnimator` Class
+
+
 ## Directory Information
 
 ```bash
 /smart-campus
     /data
-    /input
-        /coords
-            campusCoords.json
+        /input
+            /coords
+                campusCoords.json
+            /png_files
+                campus_image.png
+            /WiFiData
+                EDUROAM
+                    building.csv....
+                UCBGuest
+                    building.csv....
+                UCBWireless
+                    building.csv....
 
-        /png_files
-            campus_image.png
-
-        /WiFiData
-            EDUROAM
-                building.csv....
-            UCBGuest
-                building.csv....
-            UCBWireless
-                building.csv....
-
-    /output
-        /building-plots
-            /intervals
-                /datetime-series
-                /time-series
-                
-        /campus-plots
-
+        /output
+            /building-plots
+                "%b-%d-%Y"_to_"%b-%d-%Y"
+                    /interval
+                        AERO.png...
+                    /svd
+                        AERO.png...
+                    /trunc-svd
+                        AERO.png...
+                    /nmf
+                        AERO.png...
+                    /tsnmf
+                        AERO.png...
+                    /special
+                    
     /src
-        /cpp
-
         /python
             __init__.py
             DataAnimator.py
             DataProcessor.py
-            DataVisualizer.py
-            DecompositionsMethods.py
-            DecompositionsVisualizer.py
-            TableBuilder.py
-            performance_testing.py
-            plot_functions.py
+            DataVisualization.py
+                DataVisualizer
+                GUIVisualizer
+            MatrixDecompositions.py
             utils.py
 
         /scripts
@@ -74,7 +80,13 @@
             mount
             run
 
-    MAIN.ipynb
+    /notebooks
+        1. DataProcessor.ipynb
+        2. DataVisualization.ipynb
+        3. DataDecompositions.ipynb
+        4. DataAnimator
+
+
     README.md
     requirements.txt
 ```
