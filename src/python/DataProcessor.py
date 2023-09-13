@@ -57,7 +57,7 @@ class DataProcessor:
                  end_date       : datetime  = None, 
                  building_id    : str       = None, 
                  cpu_cores      : int       = multiprocessing.cpu_count(),
-                 sample_freq    : str       = '2Min',
+                 sample_freq    : str       = '5Min',
                  record_time: bool          = False,
                  use_common : bool          = True
                  ):
@@ -85,14 +85,14 @@ class DataProcessor:
         data_mat             = pd.read_csv(file_path, header=None, names=['datetime', 'devicecount'])
         data_mat['datetime'] = pd.to_datetime(data_mat['datetime'], errors='coerce')
         
-        # Print non-numeric values
-        #non_numeric = data_mat[~data_mat['devicecount'].apply(lambda x: str(x).isnumeric())]
-        #print("Non-numeric values in 'devicecount':")
-        #print(non_numeric)
+        ## Print non-numeric values
+        # non_numeric = data_mat[~data_mat['devicecount'].apply(lambda x: str(x).isnumeric())]
+        # print("Non-numeric values in 'devicecount':")
+        # print(non_numeric)
         
-        # Count NaN values
-        nan_count = data_mat['devicecount'].isna().sum()
-        print(f"Total NaNs in 'devicecount': {nan_count}")
+        ## Count NaN values
+        # nan_count = data_mat['devicecount'].isna().sum()
+        # print(f"Total NaNs in 'devicecount': {nan_count}")
         
         data_mat = data_mat[pd.to_numeric(data_mat['devicecount'], errors='coerce').notna()]
         data_mat['devicecount'] = data_mat['devicecount'].astype(float)
