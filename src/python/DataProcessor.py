@@ -1,11 +1,18 @@
-####################################################################################################
-"""
-
-Author: TYLER REISER
-
 
 """
-####################################################################################################
+This module contains the DataProcessor class for processing and analyzing network information from the CU Boulder campus. 
+
+Key functionalities of this module include:
+- Reading time series data from a CSV file
+- Interpolating the time series data
+- Processing data for a specific building
+- Processing data for all buildings
+
+The CSV files to be processed should be placed in the csv_directory specified when creating a DataProcessor object.
+
+Created on Jul 28, 2023.
+"""
+
 
 import os
 import multiprocessing
@@ -30,12 +37,19 @@ common_output_path = ['data', 'output', 'building-plots']
 CSV_DIRECTORY = build_path('data', 'input', 'WiFiData')
 OUTPUT_PATH = build_path( *common_output_path )
 
-SAMPLE_FREQUENCY_LIST = [   '20Min', '10Min', '5Min', '2Min'    ]
 
 class DataProcessor:
     '''
     A class to process the CU Boulder Network Information
-    Date Created: Jul 28, 2023 
+
+    Attributes:
+    csv_directory (str): The directory where the CSV files are located.
+    start_date (datetime): The start date for the data processing. Defaults to None.
+    end_date (datetime): The end date for the data processing. Defaults to None.
+    building_id (str): The id of the building to process data for. Defaults to None.
+    cpu_cores (int): The number of CPU cores to use for processing. Defaults to the number of cores on the machine.
+    sample_freq (str): The frequency for sampling the data. Defaults to '2Min'.
+    record_time (bool): Whether to record the time taken for processing. Defaults to False.
     '''
     def __init__(self,  
                  csv_directory  : str       = CSV_DIRECTORY, 
@@ -57,11 +71,29 @@ class DataProcessor:
 
     @staticmethod
     def read_time_series_data(file_path: str) -> pd.DataFrame:
+        """
+        Reads time series data from a CSV file.
+
+        Args:
+            file_path (str): The path to the CSV file.
+
+        Returns:
+            pd.DataFrame: The time series data.
+        """
         data_mat             = pd.read_csv(file_path, header=None, names=['datetime', 'devicecount'])
         data_mat['datetime'] = pd.to_datetime(data_mat['datetime'])
         return data_mat
 
     def interpolate_time_series_data(self, data: pd.DataFrame) -> pd.DataFrame:
+        """
+        Interpolates the time series data.
+
+        Args:
+            data (pd.DataFrame): The time series data.
+
+        Returns:
+            pd.DataFrame: The interpolated time series data.
+        """
         data = data.loc[~data.index.duplicated(keep='first')]
         
         if self.start_date  is None:
@@ -112,77 +144,3 @@ class DataProcessor:
             return total_time
 
         return {k: v for k, v in results if not v.empty}
-    
-
-class SpeedTest:
-    def __init__(self, function, *args, **kwargs):
-        self.function = function
-        self.args = args
-        self.kwargs = kwargs
-
-    def run(self):
-        start_time = datetime.now()
-        result = self.function(*self.args, **self.kwargs)
-        end_time = datetime.now()
-        total_time = end_time - start_time
-        print(f"Time taken: {total_time}")
-        return result
-
-    def measure_data_processing_speed(self, sample_frequency_list=SAMPLE_FREQUENCY_LIST):
-        num_cores       =   multiprocessing.cpu_count()
-        core_list       =   list(   range(  1, num_cores + 1)   )
-        times_record    =   { freq: [] for freq in sample_frequency_list  }
-        exceptions      =   []
-
-        with ProcessPoolExecutor(   max_workers = num_cores   ) as executor:
-
-            data_processor = DataProcessor( cpu_cores    =   1, 
-                                            sample_freq  =   sample_frequency_list[0],
-                                            record_time  =   True)
-
-            for frequency in sample_frequency_list:
-                for core_num in core_list:
-                    try:
-                        data_processor.cpu_cores    = core_num
-                        data_processor.sample_freq  = frequency
-
-                        future      = executor.submit(  data_processor.process_all_buildings    )
-                        total_time  = future.result()
-                        
-                        if isinstance(total_time, timedelta):
-                            times_record[frequency].append(total_time.total_seconds())
-                        else:
-                            pass
-
-                    except Exception as error:
-                        exceptions.append(  (   core_num, frequency, str(error)    )   )
-                        print(f"Error processing data with {core_num} cores and {frequency} frequency. Error: {error}")
-
-        df_times = pd.DataFrame(times_record)
-
-        plt.figure(     figsize =   (   12, 5   )       )
-        for column in df_times.columns:
-            sns.lineplot(data=df_times[column], label=column)
-
-        plt.legend(title="Sample Frequency")
-
-        plt.title(  "Data Processing Time by Sample Frequency for Number of Cores"   )
-        plt.xlabel( "Number of CPU Cores"                       )
-        plt.ylabel( "Time (seconds)"                            )
-
-        plt.legend(     title   =   "Sample Frequency"  )
-        plt.grid(True)
-        plt.xlim(1, 10)
-        
-        ax = plt.gca()
-        ax.xaxis.set_minor_locator(AutoMinorLocator())
-        ax.yaxis.set_minor_locator(AutoMinorLocator())
-        
-        plt.show()
-
-        if exceptions:
-            print(  "Errors occurred during processing:"    )
-            for core_num, frequency, error in exceptions:
-                print(  f"Error processing data with {core_num} cores and {frequency} frequency. Error: {error}"    )
-
-        return df_times
