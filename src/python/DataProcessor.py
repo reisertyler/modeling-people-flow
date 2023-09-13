@@ -58,7 +58,8 @@ class DataProcessor:
                  building_id    : str       = None, 
                  cpu_cores      : int       = multiprocessing.cpu_count(),
                  sample_freq    : str       = '2Min',
-                 record_time: bool          = False
+                 record_time: bool          = False,
+                 use_common : bool          = True
                  ):
         
         self.csv_directory  = csv_directory
@@ -68,6 +69,7 @@ class DataProcessor:
         self.cpu_cores      = cpu_cores
         self.sample_freq    = sample_freq
         self.record_time    = record_time
+        self.use_common     = use_common
 
     @staticmethod
     def read_time_series_data(file_path: str) -> pd.DataFrame:
@@ -81,7 +83,19 @@ class DataProcessor:
             pd.DataFrame: The time series data.
         """
         data_mat             = pd.read_csv(file_path, header=None, names=['datetime', 'devicecount'])
-        data_mat['datetime'] = pd.to_datetime(data_mat['datetime'])
+        data_mat['datetime'] = pd.to_datetime(data_mat['datetime'], errors='coerce')
+        
+        # Print non-numeric values
+        #non_numeric = data_mat[~data_mat['devicecount'].apply(lambda x: str(x).isnumeric())]
+        #print("Non-numeric values in 'devicecount':")
+        #print(non_numeric)
+        
+        # Count NaN values
+        nan_count = data_mat['devicecount'].isna().sum()
+        print(f"Total NaNs in 'devicecount': {nan_count}")
+        
+        data_mat = data_mat[pd.to_numeric(data_mat['devicecount'], errors='coerce').notna()]
+        data_mat['devicecount'] = data_mat['devicecount'].astype(float)
         return data_mat
 
     def interpolate_time_series_data(self, data: pd.DataFrame) -> pd.DataFrame:
@@ -119,10 +133,16 @@ class DataProcessor:
         return [self._get_building_identifiers(filename) for filename in filenames]
 
     def _process_building_data(self, building_name: str) -> Tuple[str, pd.DataFrame]:
-        csv_filepath = os.path.join(self.csv_directory, f"{building_name}{COMMON}")
-        data_mat     = self.read_time_series_data(csv_filepath)
-        data_mat     = data_mat.set_index('datetime')
-        
+        csv_filename = f"{building_name}{COMMON}" if self.use_common else building_name
+        csv_filepath = os.path.join(self.csv_directory, csv_filename)
+
+        try:
+            data_mat = self.read_time_series_data(csv_filepath)
+            data_mat = data_mat.set_index('datetime')
+        except FileNotFoundError:
+            print(f"No file found with the name {csv_filepath}.")
+            return building_name, pd.DataFrame()
+
         if data_mat.empty:
             return building_name, pd.DataFrame()
 
