@@ -42,7 +42,7 @@
             /png_files
                 campus_image.png
             /WiFiData
-                EDUROAM
+                Eduroam
                     building.csv....
                 UCBGuest
                     building.csv....
