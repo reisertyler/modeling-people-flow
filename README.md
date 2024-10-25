@@ -1,4 +1,6 @@
-# Smart Campus: Modeling Events
+# Modeling Population Flow
+
+by Tyler Reiser
 
 ## Workflow
 
@@ -93,4 +95,4 @@
 
 ## Acknowledgement
 
-This work utilized the Alpine high performance computing resource at the University of Colorado Boulder. Alpine is jointly funded by the University of Colorado Boulder, the University of Colorado Anschutz, Colorado State University, and the National Science Foundation (award 2201538).
+Built as a side project during summer 2023 by Tyler Reiser. This code has never been run on CU Research Computing resources - the goal was to build a system that could process WiFi information reports for the entire campus, eventually running it continuously on the Alpine supercomputing cluster. The contributions of Jake McGrath served as inspiration for this project and I acknowledgement James H. Curry for some level of support.
