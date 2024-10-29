@@ -95,4 +95,4 @@ by Tyler Reiser
 
 ## Acknowledgement
 
-Built as a side project during summer 2023 by Tyler Reiser. This code has never been run on CU Research Computing resources - the goal was to build a system that could process WiFi information reports for the entire campus, eventually running it continuously on the Alpine supercomputing cluster. The contributions of Jake McGrath served as inspiration for this project and I acknowledgement James H. Curry for some level of support.
+Built as a side project during summer 2023 by Tyler Reiser. This code has never been run on CU Research Computing resources - the goal was to build a system that could process WiFi information reports for the entire campus, eventually running it continuously on the Alpine supercomputing cluster.
