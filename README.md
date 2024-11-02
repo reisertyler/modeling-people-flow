@@ -1,6 +1,15 @@
 # Modeling Population Flow
 
-by Tyler Reiser
+Copyright 2024 Tyler A Reiser
+
+This repository and all its contents are licensed under the GNU General Public License v3.0 (GPL-3.0).
+
+By contributing to this project, you agree to license your contributions under the GPL-3.0 license.
+
+All rights reserved. No warranty is given.
+
+See LICENSE file for details.
+
 
 ## Workflow
 
