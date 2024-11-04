@@ -5,10 +5,6 @@ This project takes a dynamical systems approach to modeling population. Everythi
 ## Copyright
 
 Copyright 2024 Tyler A Reiser  
-This repository and all its contents are licensed under the GNU General Public License v3.0 (GPL-3.0).  
-By contributing to this project, you agree to license your contributions under the GPL-3.0 license.  
-All rights reserved. No warranty is given.  
-See LICENSE file for details.  
 
 If you infringe on this copyright or license, then I will take legal action.  
 
