@@ -2,11 +2,11 @@
 
 This project takes a dynamical systems approach to modeling population. Everything is explained in the Jupyter Notebooks.
 
-## Copyright
+NOTE THIS WILL BE UPDATED SOON. **WATCH THIS.** Actor's, man! Fall back. :]
 
-Copyright 2024 Tyler A Reiser  
+## Legal
 
-If you infringe on this copyright or license, then I will take legal action.  
+COPYRIGHT 2024 Tyler A Reiser.
 
 ## Workflow
 
@@ -101,5 +101,3 @@ If you infringe on this copyright or license, then I will take legal action.
 ## Acknowledgement
 
 Built as a side project during summer 2023 by Tyler Reiser. This code has never been run on CU Research Computing resources - the goal was to build a system that could process WiFi information reports for the entire campus, eventually running it continuously on the Alpine supercomputing cluster.
-
-It is too bad I failed out of the graduate program and could not finish the project. I also got a C- in the Data Mining course I took the summer while doing this project - one of two computer science classes I have taken in my academic career. 

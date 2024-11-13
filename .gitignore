@@ -1,0 +1,44 @@
+# Make using a version control system a little easier...
+*~
+
+data/output/
+data/input/
+
+
+## Use a folder named "temp" to store files without tracking
+#  so, ./temp/ *Git will ignore contents*
+#  [1] https://www.w3schools.com/git/git_ignore.asp
+*.log
+
+
+src/python/data_plotter
+src/python/sindy
+src/python/time_series
+src/python/decomps
+
+src/temp/
+
+ARCHIVE
+
+*.pdf
+*.png
+*.ipynb
+*.json
+
+
+# Ignore .csv files
+# [2] https://stackoverflow.com/questions/33175721/how-do-i-get-git-to-ignore-my-csv-files
+*.csv
+*.pkl
+
+# Ignore DS_store hidden file
+# [3] https://stackoverflow.com/questions/18393498/gitignore-all-the-ds-store-files-in-every-folder-and-subfolder
+# CLEAR CACHE: git rm --cached .DS_Store
+.DS_Store
+
+# Ignore Jupyter nb checkpoints and pycache
+# [4] https://stackoverflow.com/questions/35916658/how-to-git-ignore-ipython-notebook-checkpoints-anywhere-in-repository
+# [5] https://stackoverflow.com/questions/71123878/git-ignore-all-pycache-directory
+# CLEAR CACHE: git rm -r <path to __pycache__ OR .ipynb_checkpoints>
+.ipynb_checkpoints
+__pycache__
