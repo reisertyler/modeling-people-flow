@@ -11,7 +11,7 @@ data/input/
 *.log
 
 
-src/python/data_plotter
+src/python/data_plotter/sparsity_plotter.ipynb
 src/python/sindy
 src/python/time_series
 src/python/decomps

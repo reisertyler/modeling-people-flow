@@ -1,3 +1,7 @@
+
+""" COPYRIGHT 2024 Tyler A Reiser. """
+
+
 from datetime import datetime
 from src.python.processor.data_processor import DataReader, BuildingProcessor
 from src.python.processor.config_manager import ConfigManager

@@ -1,12 +1,8 @@
 # Modeling Population Flow
 
-This project takes a dynamical systems approach to modeling population. Everything is explained in the Jupyter Notebooks.
+This project takes a dynamical systems approach to modeling population. Everything is explained in the Jupyter Notebooks and will be updated over the next few months. It's a work in progress and a side-project that is not funded.
 
-NOTE THIS WILL BE UPDATED SOON. **WATCH THIS.** Actor's, man! Fall back. :]
-
-## Legal
-
-COPYRIGHT 2024 Tyler A Reiser.
+NOTE THIS WILL BE UPDATED SOON.
 
 ## Workflow
 
@@ -100,4 +96,7 @@ COPYRIGHT 2024 Tyler A Reiser.
 
 ## Acknowledgement
 
-Built as a side project during summer 2023 by Tyler Reiser. This code has never been run on CU Research Computing resources - the goal was to build a system that could process WiFi information reports for the entire campus, eventually running it continuously on the Alpine supercomputing cluster.
+Built as a side project during summer 2023 by Tyler Reiser. This code has never been run on CU Research Computing resources - the goal was to build a system that could process WiFi information reports for the entire campus, eventually running it continuously on the Alpine supercomputing cluster.   
+
+
+COPYRIGHT 2024 Tyler A Reiser.

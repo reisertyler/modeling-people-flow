@@ -1,4 +1,6 @@
 
+""" COPYRIGHT 2024 Tyler A Reiser. """
+
 
 import os
 import logging

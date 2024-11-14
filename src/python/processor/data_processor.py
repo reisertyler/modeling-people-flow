@@ -1,5 +1,8 @@
 
 """
+
+COPYRIGHT 2024 Tyler A Reiser.
+
 This module contains the DataReader, SparsityCalculator, and BuildingProcessor classes for processing, analyzing, and interpolating network information from the CU Boulder campus. 
 
 Key functionalities of this module include:
