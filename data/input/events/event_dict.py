@@ -1,15 +1,16 @@
 
-from datetime import datetime
+""" COPYRIGHT 2024 Tyler A Reiser. """
 
+
+from datetime import datetime
 
 
 ###############################################################################
 #
 #   Event Dictionary
 #
-#
-#
 ###############################################################################
+
 events = {
     "CU Black and Gold scrimmage": {
         "2019": datetime.strptime("April 27, 2019 12:00 PM", "%B %d, %Y %I:%M %p"),
