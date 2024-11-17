@@ -1,4 +1,4 @@
-## Coordinates from Image
+# Coordinates from Image
 
 I used this web app to find the cartesian pixel coordinates for each building: https://plotdigitizer.com/app. This isn't hard to do but it takes a really long time. If a heatmap is wanted for more than one image...it makes more sense to pay a developer to finish the coordinate from map code and to make it adaptable to all images. But, I'm only showing one image, so I just put in several hours of mapping coordinates using this method:
 

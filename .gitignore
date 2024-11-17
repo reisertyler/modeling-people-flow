@@ -22,8 +22,6 @@ ARCHIVE
 
 *.pdf
 *.png
-*.ipynb
-*.json
 
 
 # Ignore .csv files

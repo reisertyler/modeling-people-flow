@@ -1,7 +1,17 @@
 
-"""
 
-COPYRIGHT 2024 Tyler A Reiser.
+########################################################################
+#
+# AUTHOR:         TYLER A. REISER  
+# CREATED:        SEPTEMBER   2023  
+# MODIFIED:       NOVEMBER    2024
+#
+# COPYRIGHT (c) 2024 Tyler A. Reiser
+#
+########################################################################
+
+
+"""
 
 This module contains the DataReader, SparsityCalculator, and BuildingProcessor classes for processing, analyzing, and interpolating network information from the CU Boulder campus. 
 
@@ -58,25 +68,26 @@ OUTPUT_PATH     = BASE_DIR.joinpath('data', 'output', 'building-plots')
 
 class DataReader:
     
-    def __init__(self, 
-                 file_path:     Path        = CSV_DIRECTORY,
-                 start_date:    datetime    = None, 
-                 end_date:      datetime    = None,
-                 config_name    = "Config1",
-                 config_file    = "config2.json",
-                 sample_freq    = "1Min"
-                 ):
+    def __init__(
+        self, 
+        file_path  : Path      = CSV_DIRECTORY,
+        start_date : datetime  = None, 
+        end_date   : datetime  = None,
+        config_name    = "Config1",
+        config_file    = "config2.json",
+        sample_freq    = "1Min"
+        ):
         
-        self.start_date         = start_date
-        self.end_date           = end_date
-        self.file_path          = file_path
-        self.config_manager     = ConfigManager(config_file)
-        self.config             = self.config_manager.get_configuration(config_name)
-        self.sample_freq        = sample_freq
-        self.save_interpolated  = self.config[  'SAVE_INTERPOLATED' ]
-        self.devicecount        = self.config[  'DEVICECOUNT'       ]
-        self.datetime           = self.config[  'DATETIME'          ]
-        self.save_directory     = BASE_DIR.joinpath('data','output','interpolated-data')
+        self.start_date         =   start_date
+        self.end_date           =   end_date
+        self.file_path          =   file_path
+        self.config_manager     =   ConfigManager(config_file)
+        self.config             =   self.config_manager.get_configuration(config_name)
+        self.sample_freq        =   sample_freq
+        self.save_interpolated  =   self.config[  'SAVE_INTERPOLATED' ]
+        self.devicecount        =   self.config[  'DEVICECOUNT'       ]
+        self.datetime           =   self.config[  'DATETIME'          ]
+        self.save_directory     =   BASE_DIR.joinpath('data','output','interpolated-data')
 
     
     def read_time_series_data(self) -> pd.DataFrame:
@@ -259,7 +270,9 @@ class BuildingProcessor:
         if data_mat.empty:
             return building_name
         
-        interpolated_data = data_reader.smooth_time_series_data(data_mat)
+        # INTERPOLATION
+        #interpolated_data = data_reader.smooth_time_series_data(data_mat)
+        interpolated_data = data_reader.interpolate_time_series_data(data_mat)
         
         if self.start_date or self.end_date:
             interpolated_data = interpolated_data[
@@ -396,6 +409,8 @@ class BuildingProcessor:
                 # Store average in dictionary
                 results[    'Average'       ][building_type] =  temp_df
                 
+        
+        # PLOTTING AVERAGE
                 
         #plt.figure()
         #plt.plot(results['Average']['general']['devicecount'],      label='General'     )

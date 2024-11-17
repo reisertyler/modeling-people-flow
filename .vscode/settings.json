@@ -1,0 +1,9 @@
+{
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/requirements.txt": true
+    },
+    "editor.fontFamily": "Fira Code",
+    "editor.fontSize": 10.5,
+    "jupyter.notebookFileRoot": "${workspaceFolder}"
+}

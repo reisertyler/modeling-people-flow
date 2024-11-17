@@ -1,7 +1,13 @@
 
+########################################################################
 #
+# AUTHOR:         TYLER A. REISER  
+# CREATED:        SEPTEMBER   2023  
+# MODIFIED:       NOVEMBER    2024
 #
+# COPYRIGHT (c) 2024 Tyler A. Reiser
 #
+########################################################################
 
 import os
 import numpy as np

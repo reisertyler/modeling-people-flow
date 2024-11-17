@@ -1,4 +1,15 @@
 
+########################################################################
+#
+# AUTHOR:         TYLER A. REISER  
+# CREATED:        NOVEMBER  2023  
+# MODIFIED:       NOVEMBER  2024
+#
+# COPYRIGHT (c) 2024 Tyler A. Reiser
+#
+########################################################################
+
+
 """ COPYRIGHT 2024 Tyler A Reiser. """
 
 

@@ -1,6 +1,15 @@
 
-""" COPYRIGHT 2024 Tyler A Reiser. """
+########################################################################
+#
+# AUTHOR:         TYLER A. REISER  
+# CREATED:        SEPTEMBER   2023  
+# MODIFIED:       NOVEMBER    2024
+#
+# COPYRIGHT (c) 2024 Tyler A. Reiser
+#
+########################################################################
 
+""" COPYRIGHT 2024 Tyler A Reiser. """
 
 import os
 import logging
