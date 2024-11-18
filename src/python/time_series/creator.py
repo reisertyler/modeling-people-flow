@@ -10,7 +10,6 @@
 #
 ########################################################################
 
-
 """ COPYRIGHT 2024 Tyler A Reiser. """
 
 
@@ -60,7 +59,7 @@ class VisualizerCreator:
         self.timeseries_configs = [
             "Config1", "Config2", "Config3", "Config4","Config5", "Config6", "Config7", "Config8","Config9", "Config10"
             ]
-        self.campus_configs     = ["campus-plotter1","campus-plotter2","normalized-campus-plotter"]
+        self.campus_configs     = [ "campus-plotter1", "campus-plotter2", "normalized-campus-plotter" ]
 
 
     def create_processor(self):

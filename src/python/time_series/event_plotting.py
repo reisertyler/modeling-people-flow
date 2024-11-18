@@ -45,29 +45,40 @@ class DataVisualizer:
         self.plot_saver     = PlotSaver(config)
         self.plot_creator   = PlotCreator(config)
 
+
     def plot_single(self, building: str, networks: List[str]=None, events=ev.events):
+        
         if networks is None:
             networks = self.NETWORKS
+            
         dfs = []
         max_ys = []
+        
         for network in networks:
             data = self.data_fetcher.fetch_building_data(network, building)
+            
             if isinstance(data, pd.DataFrame):
                 data.rename(columns={'datetime':'dt'}, inplace=True)
                 dfs.append(data)
+                
             else:
                 logger.error(f"fetch_building_data returned a non-DataFrame for network {network} and building {building}: {data}")
                 continue
+            
         if not dfs or dfs[0].empty:
             logger.error(f"No data available for building {building}")
+            
             return
         
         # Normalize and set y axis limit
         if self.normalize:
             scaler = MinMaxScaler()
+            
             for df in dfs:
                 df[self.devicecount] = scaler.fit_transform(df[self.devicecount].values.reshape(-1,1))
-            max_ys = [1 for _ in dfs]     
+                
+            max_ys = [1 for _ in dfs]    
+             
         else:
             max_ys = [df[self.devicecount].max() for df in dfs]
             
@@ -77,10 +88,15 @@ class DataVisualizer:
         # Config 1 (Connected Time Series Plot):  
         #   Plot passed range of data on 1 plot
         if self.intervals == 1:
+            
             if not isinstance(axs, list):
+                
                 axs = [axs]
+                
             for df, max_y, network in zip(dfs, max_ys, networks):
+                
                 if df.empty:
+                    
                     continue
                     
                 color = self.COLORS[network]
@@ -91,6 +107,7 @@ class DataVisualizer:
         else:
             if isinstance(axs, np.ndarray):
                 axs = list(axs)
+                
             for i, ax in enumerate(axs):
                 start_index = i * len(dfs[0]) // self.intervals
                 end_index = (i + 1) * len(dfs[0]) // self.intervals
@@ -149,25 +166,32 @@ class EventPlotter:
                 
 
 class CampusPlotter:
+    
     def __init__(self, data, config):
-        self.data = data
-        self.config = config
-        self.output_path = config['OUTPUT_PATH']
-        self.intervals = config['INTERVALS']
-        self.figure_size = tuple(config['FIGURE_SIZE'])
-        self.label_sizes = config['LABEL_SIZES']
-        self.show_plot = config['SHOW_PLOT']
-        self.normalize = config['NORMALIZE']
-        self.devicecount = config['DEVICECOUNT']
+        self.data           = data
+        self.config         = config
+        self.output_path    = config['OUTPUT_PATH']
+        self.intervals      = config['INTERVALS']
+        self.figure_size    = tuple(config['FIGURE_SIZE'])
+        self.label_sizes    = config['LABEL_SIZES']
+        self.show_plot      = config['SHOW_PLOT']
+        self.normalize      = config['NORMALIZE']
+        self.devicecount    = config['DEVICECOUNT']
+
 
     def normalize_device_count(self):
+        
         if self.normalize:
+            
             max_count = self.data[self.devicecount].max()
             min_count = self.data[self.devicecount].min()
+            
             if max_count != min_count:
                 self.data[self.devicecount] = (self.data[self.devicecount] - min_count) / (max_count - min_count)
 
+
     def create_output_dir(self):
+        
         if not os.path.exists(self.output_path):
             os.makedirs(self.output_path)
 

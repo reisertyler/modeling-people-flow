@@ -4,7 +4,6 @@
         "**/requirements.txt": true
     },
     "editor.fontFamily": "Fira Code",
-    "editor.fontSize": 10.5,
     "jupyter.notebookFileRoot": "${workspaceFolder}",
     "editor.wordWrapColumn": 80
 }

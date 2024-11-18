@@ -1,6 +1,7 @@
-# Modeling Population Flow
 
-This project takes a dynamical systems approach to modeling population. Everything is explained in the Jupyter Notebooks and will be updated over the next few months. It is a work in progress and a side-project that is not currently funded. If you are interested in helping me, Tyler Reiser, fund this project or if you would like to fund this project, please reach out. Thanks.
+# Modeling People Flow
+
+This project takes a dynamical systems approach to modeling the flow of people on a public campus. Everything is explained in the Jupyter Notebooks and will be updated over the next few months. It is a work in progress and a side-project that is not currently funded. If you are interested in helping me, Tyler Reiser, fund this project or if you would like to fund this project, please reach out. Thanks.
 
 ## Workflow
 
@@ -37,7 +38,7 @@ This project takes a dynamical systems approach to modeling population. Everythi
 ## Directory Information
 
 ```bash
-/ModelingPopulationFlow
+/ModelingPeopleFlow
     .env
     .vscode
 
