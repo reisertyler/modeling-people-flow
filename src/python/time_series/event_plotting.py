@@ -26,9 +26,11 @@ logger = logging.getLogger(__name__)
 
 
 class DataVisualizer:
+    
     def __init__(self, data_processor, config):
-        self.data_processor = data_processor
-        self.config         = config
+        
+        self.data_processor     = data_processor
+        self.config             = config
         self.NETWORKS           = config['NETWORKS']
         self.FIGURE_SIZE        = tuple(config['FIGURE_SIZE'])
         self.SUBPLOT_ADJUSTMENT = config['SUBPLOT_ADJUSTMENT']

@@ -139,7 +139,6 @@ Built as a side project during summer 2023 by Tyler Reiser. This code has never 
 
 ---
 
-AUTHOR:         TYLER A. REISER  
 CREATED:        SEPTEMBER   2023  
 MODIFIED:       NOVEMBER    2024
 

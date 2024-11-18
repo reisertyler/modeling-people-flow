@@ -110,47 +110,79 @@
 
     "Config3": {
         "LABEL_SIZES": {"xlabel": 6,"ylabel": 6,"title": 8,"tick_params": 6.5},
+        "OUTPUT_PATH": "data/output/building-plots/single/aggregate/",
+        "NETWORKS": ["Sum"],
+        "COLORS": {"Sum": "#BF4F51"},
+        "FIGURE_SIZE": [16, 5],
+        "INTERVALS": 1
+    },
+
+    "Config4": {
+        "OUTPUT_PATH": "data/output/building-plots/chunks/aggregate/",
+        "NETWORKS": ["Sum"],
+        "COLORS": {"Sum": "#BF4F51"},
+        "FIGURE_SIZE": [16, 16],
+        "INTERVALS": 6
+    },
+
+    "Config5": {
+        "LABEL_SIZES": {"xlabel": 6,"ylabel": 6,"title": 8,"tick_params": 6.5},
         "OUTPUT_PATH": "data/output/building-plots/single/normalized/",
-        "NETWORKS": [ "Sum"],
+        "NETWORKS": ["Sum"],
         "COLORS": {"Sum": "#BF4F51"},
         "FIGURE_SIZE": [16, 5],
         "INTERVALS": 1,
         "NORMALIZE": true
     },
 
-    "Config4": {
+    "Config6": {
         "OUTPUT_PATH": "data/output/building-plots/chunks/normalized/",
-        "NETWORKS": [ "Sum"],
+        "NETWORKS": ["Sum"],
         "COLORS": {"Sum": "#BF4F51"},
         "FIGURE_SIZE": [16, 16],
         "INTERVALS": 6,
         "NORMALIZE": true
     },
 
-    "Config5": {
+    "Config7": {
         "NETWORKS": ["UCBGuest","Eduroam"],
-        "OUTPUT_PATH": "data/output/building-plots/chunks/two-networks",
+        "OUTPUT_PATH": "data/output/building-plots/chunks/UCBGuest-and-EDUROAM",
         "FIGURE_SIZE": [16, 16],
         "INTERVALS": 6
     },
 
-    "Config6": {
-             "LABEL_SIZES": {"xlabel": 6,"ylabel": 6,"title": 8,"tick_params": 6.5},
+    "Config8": {
+        "LABEL_SIZES": {"xlabel": 6,"ylabel": 6,"title": 8,"tick_params": 6.5},
         "NETWORKS": ["UCBGuest","Eduroam"],
-        "OUTPUT_PATH": "data/output/building-plots/single/two-networks",
+        "OUTPUT_PATH": "data/output/building-plots/single/UCBGuest-and-EDUROAM",
+        "FIGURE_SIZE": [16, 5],
+        "INTERVALS": 1
+    },
+    "Config9": {
+        "NETWORKS": ["UCBWireless"],
+        "OUTPUT_PATH": "data/output/building-plots/chunks/UCBWireless",
+        "FIGURE_SIZE": [16, 16],
+        "INTERVALS": 6
+    },
+
+    "Config10": {
+        "LABEL_SIZES": {"xlabel": 6,"ylabel": 6,"title": 8,"tick_params": 6.5},
+        "NETWORKS": ["UCBWireless"],
+        "OUTPUT_PATH": "data/output/building-plots/single/UCBWireless",
         "FIGURE_SIZE": [16, 5],
         "INTERVALS": 1
     },
 
+
     "campus-plotter1": {
-        "OUTPUT_PATH": "data/output/campus-plots/1",
+        "OUTPUT_PATH": "data/output/campus-plots/campus-plotter1",
         "NETWORKS": [ "Campus"],
         "COLORS": {"Sum": "#8B0000"},
         "FIGURE_SIZE": [16, 5],
         "INTERVALS": 2
     },
     "campus-plotter2": {
-        "OUTPUT_PATH": "data/output/campus-plots/2",
+        "OUTPUT_PATH": "data/output/campus-plots/campus-plotter2",
         "NETWORKS": [ "Campus"],
         "COLORS": {"Sum": "#8B0000"},
         "FIGURE_SIZE": [16, 16],
@@ -164,24 +196,33 @@
         "INTERVALS": 6,
         "NORMALIZE": true
     },
-    "dorm-average": {
-        "OUTPUT_PATH": "data/output/campus-plots/average/residential",
-        "NETWORKS": ["Average","residential"],
-        "COLORS": {"Sum": "#8B0000"},
-        "FIGURE_SIZE": [16, 16],
-        "INTERVALS": 6
-    },
+
     "general-average": {
         "OUTPUT_PATH": "data/output/campus-plots/average/general",
-        "NETWORKS": ["Average","general"],
-        "COLORS": {"Sum": "#8B0000"},
+        "NETWORKS": {
+            "type": ["Average", "general"]
+        },
+        "COLORS": {"general": "#1f77b4"},
         "FIGURE_SIZE": [16, 16],
         "INTERVALS": 6
     },
+
+    "residential-average": {
+        "OUTPUT_PATH": "data/output/campus-plots/average/residential",
+        "NETWORKS": {
+            "type": ["Average","residential"]
+        },
+        "COLORS": {"residential": "#ff7f0e"},
+        "FIGURE_SIZE": [16, 16],
+        "INTERVALS": 6
+    },
+    
     "community-average": {
         "OUTPUT_PATH": "data/output/campus-plots/average/community",
-        "NETWORKS": ["Average","community"],
-        "COLORS": {"Sum": "#8B0000"},
+        "NETWORKS": {
+            "type": ["Average","community"]
+        },
+        "COLORS": {"community": "#2ca02c"},
         "FIGURE_SIZE": [16, 16],
         "INTERVALS": 6
     }

@@ -13,7 +13,6 @@ There is currently one folder in this directory called `python` and this `README
 
 ---
 
-AUTHOR:         TYLER A. REISER  
 CREATED:        NOVEMBER    2024  
 MODIFIED:       NOVEMBER    2024
 

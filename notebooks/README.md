@@ -8,7 +8,6 @@
 
 ---
 
-AUTHOR:         TYLER A. REISER  
 CREATED:        SEPTEMBER   2024  
 MODIFIED:       NOVEMBER    2024
 

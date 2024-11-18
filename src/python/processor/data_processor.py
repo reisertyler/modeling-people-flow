@@ -410,8 +410,7 @@ class BuildingProcessor:
                 results[    'Average'       ][building_type] =  temp_df
                 
         
-        # PLOTTING AVERAGE
-                
+        # PLOTTING AVERAGE     
         #plt.figure()
         #plt.plot(results['Average']['general']['devicecount'],      label='General'     )
         #plt.plot(results['Average']['residential']['devicecount'],  label='Residential' )
