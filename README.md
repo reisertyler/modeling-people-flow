@@ -1,41 +1,38 @@
 
-# Modeling People Flow
+# Modeling People Movement
 
-This project takes a dynamical systems approach to modeling the flow of people on a public campus. Everything is explained in the Jupyter Notebooks and will be updated over the next few months. It is a work in progress and a side-project that is not currently funded. If you are interested in helping me, Tyler Reiser, fund this project or if you would like to fund this project, please reach out. Thanks.
+![Alt text](data/images/wordcloud/red_wordcloud.png)
+
+**OVERVIEW:** This project takes a dynamical systems approach to modeling the flow of people on a public campus. Everything is explained in the Jupyter Notebooks and will be updated over the next few months. 
+
+![Alt text](data/images/time-series/campus-aggregate1.png)
 
 ## Workflow
 
-> NOTE THE WORKFLOW SECTION WILL BE UPDATED WITHIN THE NEXT WEEK. EVERYTHING ELSE IS UP-TO-DATE.
-
-1. Processing Procedure
-
+1. **Processing Procedure**
     - Dataset Introduction: Campus WiFi
     - The `DataProcessor` Class
     - Class Methods
     - Optional Parameters
     - Speed-up: Parallel Data Processing
     - Performance Testing and Results
-`
-2. Data Visualization
 
+2. **Data Visualization**
     - Time-Series Visualization
     - The `DataVisualization` Module
     - Classes in this Module
         - The `DataVisualizer` Class
         - The `InteractiveVisualizer` Class
 
-3. Matrix Decompositions
-
+3. **Matrix Decompositions**
     - SVD
     - Truncated-SVD
     - NMF
     - TSNMF
 
-4. Data Animation
+4. **Sparse Indentification of Nonlinear Dynamics**
 
-    - The `DataAnimator` Class
-
-## Directory Information
+### Directory Information
 
 ```bash
 /ModelingPeopleFlow
@@ -43,6 +40,13 @@ This project takes a dynamical systems approach to modeling the flow of people o
     .vscode
 
     /data
+        /images
+            /3d
+            /matrix-fact
+            /speed-up
+            /time-series
+            /wordcloud
+
         /input
             /configs
             /coords
@@ -59,14 +63,10 @@ This project takes a dynamical systems approach to modeling the flow of people o
 
             /WiFiData-old
                 /Eduroam
-                    building.csv...
                 /UCBGuest
-                    building.csv...
                 /UCBWireless
-                    building.csv...
 
             /WiFiData-new
-                IN-PROGRESS ... a few weeks
 
         /output
             /building-plots
@@ -77,13 +77,9 @@ This project takes a dynamical systems approach to modeling the flow of people o
                     /normalized
                         "%b-%d-%Y"_to_"%b-%d-%Y"
                             /svd
-                                AERO.png...
                             /trunc-svd
-                                AERO.png...
                             /nmf
-                                AERO.png...
                             /tsnmf
-                                AERO.png...
 
                     /special
                     /time-series
@@ -94,11 +90,15 @@ This project takes a dynamical systems approach to modeling the flow of people o
                     /interval
 
             /campus-plots
+        /references
+        /tables
+        README.md
     
     /notebooks
         DataAnimator.ipynb
         DataDecompositions.ipynb
         DataVisualization.ipynb
+        MAIN.ipynb
         TEST.ipynb
                     
     /src
@@ -127,16 +127,19 @@ This project takes a dynamical systems approach to modeling the flow of people o
                 launcher.py
 
     .gitignore
-    MAIN.ipynb
     config.json
     config2.json
     README.md
     requirements.txt
 ```
 
-## Acknowledgement
+### Acknowledgement
 
 Built as a side project during summer 2023 by Tyler Reiser. This code has never been run on CU Research Computing resources - the goal was to build a system that could process WiFi information reports for the entire campus, eventually running it continuously on the Alpine supercomputing cluster.
+
+### Funding
+
+This is a work in progress and a side-project that is not currently funded. If you are interested in helping me, Tyler Reiser, find funding for this project, or if you would like to fund this project or want to help and become friends, please reach out. Thanks.
 
 ---
 

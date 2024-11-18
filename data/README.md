@@ -1,9 +1,13 @@
 
-
 # DIRECTORY: Data
 
-1. input
-2. output
+/data
+    /images
+    /input
+    /output
+    /references
+    /tables
+    README.md
 
 ---
 

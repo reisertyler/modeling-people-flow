@@ -18,6 +18,9 @@ src/python/decomps
 
 src/temp/
 
+docs
+references
+
 ARCHIVE
 
 *.pdf
