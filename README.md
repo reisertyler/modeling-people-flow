@@ -1,11 +1,11 @@
 
 # Modeling People Movement
 
-![Alt text](data/images/wordcloud/red_wordcloud.png)
-
-**OVERVIEW:** This project takes a dynamical systems approach to modeling the flow of people on a public campus. Everything is explained in the Jupyter Notebooks and will be updated over the next few months. 
+**OVERVIEW:** This project takes a dynamical systems approach to modeling the flow of people on a public campus. Everything is explained in the Jupyter Notebooks and will be updated over the next few months.
 
 ![Alt text](data/images/time-series/campus-aggregate1.png)
+
+![Alt text](data/images/wordcloud/red_wordcloud.png)
 
 ## Workflow
 
@@ -137,9 +137,7 @@
 
 Built as a side project during summer 2023 by Tyler Reiser. This code has never been run on CU Research Computing resources - the goal was to build a system that could process WiFi information reports for the entire campus, eventually running it continuously on the Alpine supercomputing cluster.
 
-### Funding
-
-This is a work in progress and a side-project that is not currently funded. If you are interested in helping me, Tyler Reiser, find funding for this project, or if you would like to fund this project or want to help and become friends, please reach out. Thanks.
+I, Tyler A. Reiser, acknowledge the support from multiple parties. From the University of Colorado Boulder, Office of Information Technology, I thank Glenn Rodrigues, Chief WiFi Network Arcitect, for providing access to this dataset. Not only was this a unique opportunity to work with a dataset relevant to the university, it provided access to data that almost no other researchers had access to. This would not have been possible without his approval. From the Department of Veteran Affairs, I thank Vicki George for unwavering support and, of course, overseeing the education benefits program that funded my graduate studies. These benefits gave me the freedom to explore the ideas that led to the development of this software and the discoveries that followed suit. Thank you.
 
 ---
 

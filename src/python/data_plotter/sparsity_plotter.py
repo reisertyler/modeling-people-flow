@@ -22,15 +22,19 @@ from pandas import DataFrame
 
 
 class DataProcessor:
+    
     def __init__(self, data_processor=None, data=None):
+        
         self.data_processor = data_processor
-        self.data = data if data is not None else self.load_data()
+        self.data           = data if data is not None else self.load_data()
+
 
     def load_data(self):
         if self.data_processor is not None and hasattr(
             self.data_processor, "process_all_buildings"
         ):
             return self.data_processor.process_all_buildings()
+        
         else:
             return None
 
@@ -51,6 +55,7 @@ class DataProcessor:
 
 
 class DataPlotter:
+    
     def __init__(
         self, data_processor, output_dir="./data/output/building-plots/all-buildings"
     ):
@@ -118,6 +123,7 @@ class DataPlotter:
             plt.show()
 
         plt.close(fig)
+
 
     def create_aggregate_bar_chart(self, fig, ax, width, colors, buildings, x, title):
         zero_elements_sum = []

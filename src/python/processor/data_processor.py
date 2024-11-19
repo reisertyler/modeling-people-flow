@@ -41,6 +41,7 @@ from scipy.interpolate import UnivariateSpline
 
 
 from src.python.processor.config_manager import ConfigManager
+from src.python.processor.sparsity import SparsityCalculator
 
 
 BASE_DIR = Path.cwd()
@@ -55,9 +56,6 @@ COMMON = '_Extracted_Data_8-16-2019.csv'
 CSV_DIRECTORY   = BASE_DIR.joinpath('data', 'input', 'WiFiData-old')
 #CSV_DIRECTORY  = BASE_DIR.joinpath('data', 'input', 'WiFiData-test')
 OUTPUT_PATH     = BASE_DIR.joinpath('data', 'output', 'building-plots')
-
-#import warnings
-#warnings.filterwarnings('ignore')
 
 
 ###############################################################################
@@ -177,45 +175,22 @@ class DataReader:
 
 ####################################################################################
 #
-#   Class: SparsityCalculator
-#
-####################################################################################
-
-class SparsityCalculator:
-    
-    def calculate_sparsity( self, data:pd.DataFrame  )  ->  pd.DataFrame:
-        
-        """Calculates the sparsity of the data."""
-        
-        total_elements  = data.size
-        zero_elements   = total_elements - np.count_nonzero(data)
-        sparsity        = zero_elements  / float(total_elements)
-        
-        sparsity_info = pd.DataFrame({'total_elements'   : [    total_elements  ],
-                                      'zero_elements'    : [    zero_elements   ],
-                                      'sparsity'         : [    sparsity        ]
-                                      })
-        
-        return sparsity_info
-
-
-####################################################################################
-#
 #   Class: BuildingProcessor
 #
 ####################################################################################
 
 class BuildingProcessor:
+    
     def __init__(
         self,
-        data_reader:    DataReader,
-        building_id:    str     = None, 
-        use_common:     bool    = True, 
-        cpu_cores:      int     = multiprocessing.cpu_count(), 
-        record_time:    bool    = False,
+        data_reader: DataReader,
+        building_id: str    = None, 
+        use_common:  bool   = True, 
+        cpu_cores:   int    = multiprocessing.cpu_count(), 
+        record_time: bool   = False,
         sparsity_check: bool    = None,
-        config_name =   "Config1",
-        config_file =   "config2.json"
+        config_name             = "Config1",
+        config_file             = "config2.json"
         ):
         
         self.data_reader    = data_reader
@@ -224,32 +199,30 @@ class BuildingProcessor:
         self.cpu_cores      = cpu_cores
         self.record_time    = record_time
         self.sparsity_check = sparsity_check
-        self.config_manager     = ConfigManager(config_file)
-        self.config             = self.config_manager.get_configuration(config_name)
+        self.config_manager = ConfigManager(config_file)
+        self.config         = self.config_manager.get_configuration(config_name)
         self.general        = self.config[  'GENERAL'       ]
         self.residential    = self.config[  'RESIDENTIAL'   ]
         self.community      = self.config[  'COMMUNITY'     ]
         self.start_date     = data_reader.start_date
         self.end_date       = data_reader.end_date 
-        self.directories    = [BASE_DIR.joinpath('data',
-                                                 'input',
-                                                 'WiFiData-old', dir_name) for dir_name in ['Eduroam',
-                                                                                            'UCBGuest',
-                                                                                            'UCBWireless'
-                                                                                            ]
-                                                 ]
+        self.directories    = [
+            BASE_DIR.joinpath('data',
+                              'input',
+                              'WiFiData-old', dir_name) for dir_name in ['Eduroam','UCBGuest','UCBWireless']
+            ]
         
-    def _get_building_identifiers(self, filename: str) -> str:
+    def _get_building_identifiers(self, filename: str)  ->  str:
         return filename.split('_')[0]
 
-    def _get_buildings(self, directory: Path) -> List[str]:
+    def _get_buildings(self, directory: Path)           ->  List[str]:
         filenames = os.listdir(directory)
         return [self._get_building_identifiers(filename) for filename in filenames]
 
-    def _process_building_data( self, 
-                                data_reader:    DataReader, 
-                                building_name:  str, 
-                                directory:      Path        )   -> Tuple[str, pd.DataFrame]:
+    def _process_building_data(self, 
+                               data_reader:     DataReader, 
+                               building_name:   str, 
+                               directory:       Path )  -> Tuple[str, pd.DataFrame]:
         
         csv_filename    = f"{building_name}{COMMON}" if self.use_common else building_name
         csv_filepath    = directory.joinpath(csv_filename)
@@ -263,6 +236,7 @@ class BuildingProcessor:
         try:
             data_mat = data_reader.read_time_series_data()
             data_mat = data_mat.set_index('datetime')
+            
         except FileNotFoundError:
             print(f"No file found with the name {csv_filepath}.")
             return building_name
@@ -294,6 +268,7 @@ class BuildingProcessor:
 
         if self.record_time:
             return total_time
+        
         if self.sparsity_check:
             results = self.calculate_sparsity(results)
             
@@ -304,6 +279,7 @@ class BuildingProcessor:
         results = {}
         
         for directory in self.directories:
+            
             network_name    = os.path.basename(directory)
             building_list   = [self.building_id] if self.building_id else self._get_buildings(directory)
             
@@ -352,17 +328,19 @@ class BuildingProcessor:
                     #######################################
                     #   Update 'Sum' dictionary
                     ####################################### 
-                    if 'Sum' not in results:
+                    if 'Sum'    not in results:
                         results['Sum'] = {}
+                        
                     if building not in results['Sum']:
                         results['Sum'][building] = df.copy()
+                        
                     else:
                         results['Sum'][building]['devicecount'] += df['devicecount']
                      
                     #######################################
                     #   Update 'Type' dictionary
                     #######################################  
-                    if 'Type' not in results:
+                    if 'Type'   not in results:
                         results['Type'] = {'general':       pd.DataFrame(), 
                                            'residential':   pd.DataFrame(), 
                                            'community':     pd.DataFrame()
@@ -371,6 +349,7 @@ class BuildingProcessor:
                     if building_type:
                         if results['Type'][building_type].empty:
                             results['Type'][building_type] = df.copy()
+                            
                         else:
                             results['Type'][building_type]['devicecount'] += df['devicecount']
                         
@@ -382,6 +361,7 @@ class BuildingProcessor:
                     #######################################  
                     if 'Campus' not in results:
                         results['Campus'] = df.copy()
+                        
                     else:
                         results['Campus']['devicecount'] += df['devicecount']
         
@@ -404,11 +384,10 @@ class BuildingProcessor:
                 temp_df = results['Type'][building_type].copy()
                 
                 # Calculate average
-                temp_df[    'devicecount'   ] /=    counts_type[building_type]
+                temp_df[    'devicecount'   ] /= counts_type[building_type]
                 
                 # Store average in dictionary
-                results[    'Average'       ][building_type] =  temp_df
-                
+                results[    'Average'       ][building_type] = temp_df    
         
         # PLOTTING AVERAGE     
         #plt.figure()
@@ -425,50 +404,19 @@ class BuildingProcessor:
         
         end_time = time.time()
         
-        total_time =    end_time - start_time
-        total_time_rounded = np.round(total_time, 3)
+        total_time          =   end_time - start_time
+        total_time_rounded  =   np.round(total_time, 3)
+        
         return total_time_rounded
 
 
     def calculate_sparsity(self, results):
-        sparsity_calculator = SparsityCalculator() 
-        sparsity_results = {network: sparsity_calculator.calculate_sparsity(v) if isinstance(v, pd.DataFrame) else 
-                            {k: sparsity_calculator.calculate_sparsity(df) for k, df in v.items()} 
-                            for network, v in results.items()}
-        return sparsity_results
-
-
-####################################################################################
-#
-#   Class: SpeedTest
-#
-####################################################################################
-
-import matplotlib.pyplot as plt
-
-class SpeedTest:
-    def __init__(self,cpu_cores,sample_freqs):
-        self.cpu_cores = cpu_cores
-        self.sample_freqs = sample_freqs
-        self.time_results = {freq: [] for freq in self.sample_freqs}
-
-    def run(self):
-        for freq in self.sample_freqs:
-            print(f'\nProcessing all buildings for sample frequency:\t {freq}\n')
-            for cores in self.cpu_cores:
-                data_reader = DataReader(sample_freq=freq)
-                processor   = BuildingProcessor(data_reader,record_time=True,cpu_cores=cores)
-                
-                time_result = processor.process_all_buildings()
-                self.time_results[freq].append(time_result)
-
-    def plot_results(self):
-        plt.figure(figsize=(10, 6))
         
-        for freq, results in self.time_results.items():
-            plt.plot(self.cpu_cores,results,label=f'Sample Frequency: {freq}')
-        plt.xlabel('Number of CPU Cores')
-        plt.ylabel('Time to Process Data (s)')
-        plt.title('Processing Time vs Number of CPU Cores for Different Sample Frequencies')
-        plt.legend()
-        plt.show()
+        sparsity_calculator = SparsityCalculator()
+        
+        sparsity_results    = {
+            network: sparsity_calculator.calculate_sparsity(v) if isinstance(v, pd.DataFrame) else {
+                k: sparsity_calculator.calculate_sparsity(df) for k, df in v.items()} for network, v in results.items()
+            }
+        
+        return sparsity_results
